@@ -12,3 +12,17 @@ makecov <- function(rho, n) {
     m <- ifelse(row(m) == col(m), 1, rho)
     return(m)
 }
+
+getMaj <- function(row, dim) {
+    maj <- sum(row[1:dim])/dim
+    return(if (maj > 0.5) 1 else 0)
+}
+
+findols <- function(x) {
+    findol <- function(xrow) {
+        mdn <- median(xrow)
+        devs <- abs(xrow - mdn)
+        return(which.max(devs))
+    }
+    return(apply(x, 1, findol))
+}
